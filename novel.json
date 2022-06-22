@@ -1,0 +1,818 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API cho novel",
+    "version": "1.0.0",
+    "title": "Swagger Novel"
+  },
+  "host": "novelextra.com",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "novel",
+      "description": ""
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/getListNovel": {
+      "get": {
+        "tags": [
+          "novel"
+        ],
+        "summary": "Lấy danh sách các novel",
+        "description": "Với tham số truyền vào là type",
+        "operationId": "getListNovel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Tham số truyền vào là type truyện mới(NEW), truyện hot(HOT), truyện đã hoàn thành(COMPLETED)",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "NEW",
+              "HOT",
+              "COMPLETED",
+              "HOT",
+              "LATEST_RELEASE"
+            ],
+            "default": "NEW"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/GetListNovelResponce"
+            }
+          }
+        }
+      }
+    },
+    "/getListChapter/{novelId}": {
+      "get": {
+        "tags": [
+          "novel"
+        ],
+        "summary": "Lấy ra danh search các chapter của 1 truyện",
+        "description": "Truyền vào path id của truyện (id dạng string)",
+        "operationId": "getListChapter",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tags",
+            "in": "path",
+            "description": "Truyền vào path id của truyện (id dạng string)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+                "$ref": "#/definitions/GetListChapterReponce"
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/novelInfo/{novelId}": {
+      "get": {
+        "tags": [
+          "novel"
+        ],
+        "summary": "Lấy ra thông tin của novel",
+        "description": "Truyền vào path id của truyện (id dạng string)",
+        "operationId": "novelInfo",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "novelId",
+            "in": "path",
+            "description": "Truyền vào path id của truyện (id dạng string)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/NovelInfoResponce"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Invalid"
+          }
+        }
+      }
+    },
+    "/getNovelsByGenre": {
+      "get": {
+        "tags": [
+          "novel"
+        ],
+        "summary": "Lấy danh sách các novel",
+        "description": "Với tham số truyền vào là type, genre và status",
+        "operationId": "getNovelsByGenre",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "genre",
+            "in": "query",
+            "description": "Tham số truyền vào là các loại genre",
+            "type": "string",
+            "enum": [
+              "TRAGEDY",
+              "FANTASY",
+              "SHOUNEN AI",
+              "JOSEI",
+              "HISTORICAL",
+              "HORROR",
+              "SEINEN",
+              "SMUT",
+              "EASTERN",
+              "MATURE",
+              "ROMANCE",
+              "MECHA",
+              "COMEDY",
+              "MANHUA",
+              "MAGICAL REALISM",
+              "ADULT",
+              "SLICE OF LIFE",
+              "CHINESE",
+              "HISTORY",
+              "YAOI",
+              "MAGIC",
+              "GAME",
+              "TRAGED",
+              "REINCARNATION",
+              "SHOUNEN SUPERNATURAL",
+              "ADVENTURE",
+              "LGBT+",
+              "DRAMA",
+              "SCI-FI",
+              "HISTORICA",
+              "MYSTERY",
+              "GENDER",
+              "GENDER BENDER",
+              "ECCHI",
+              "SHOUJO",
+              "MARTIAL",
+              "SHOUNEN",
+              "XIANXIA",
+              "LITRPG",
+              "ACTION",
+              "HAREM",
+              "MARTIAL ARTS",
+              "SUPERNATURAL",
+              "SHOUJO AI",
+              "SPORTS",
+              "MODERN LIFE",
+              "YURI",
+              "PSYCHOLOGICAL",
+              "SCHOOL LIFE",
+              "WUXIA",
+              "ISEKAI",
+              "MAGICAL",
+              "BENDER",
+              "VIDEO GAMES",
+              "XUANHUAN",
+              "URBAN"
+            ],
+            "default": "TRAGEDY"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Tham số truyền vào là 4 loại type truyện",
+            "type": "string",
+            "enum": [
+              "POPULAR", 
+              "NEW", 
+              "HOT", 
+              "CHAPTERS"
+            ],
+            "default": "POPULAR"
+          },
+          {
+            "name": "srarus",
+            "in": "query",
+            "description": "Tham số truyền vào là status hoặc \"\"",
+            "type": "string",
+            "enum": [
+              "completed", 
+              ""
+            ],
+            "default": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/GetNovelsByGenreResponce"
+            }
+          }
+        }
+      }
+    },
+    "/getChapterDetail": {
+      "get": {
+        "tags": [
+          "novel"
+        ],
+        "summary": "Lấy nội dung chuyện",
+        "description": "Với tham số truyền vào là novel id và chapter id",
+        "operationId": "getChapterDetail",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "novel_id",
+            "in": "query",
+            "description": "Tham số truyền vào là novel_id - ví dụ dimensional-descent",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chapter_id",
+            "in": "query",
+            "description": "Tham số truyền vào là chapter_id - ví dụ chapter-770",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/GetChapterDetailResponce"
+            }
+          }
+        }
+      }
+    },
+    "/search-novel": {
+      "get": {
+        "tags": [
+          "novel"
+        ],
+        "summary": "Tìm kiếm chuyện theo từ khóa",
+        "description": "Với tham số truyền vào là keyword",
+        "operationId": "searchnovel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "Tham số truyền vào là keyword ví dụ: Divine",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/SearchNovelResponce"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "GetListNovelResponce": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "array",
+          "items":{
+            "type": "object",
+            "properties":{
+              "_id": {
+                "type": "string"
+              },
+              "hot": {
+                "type": "boolean"
+              },
+              "new": {
+                "type": "boolean"
+              },
+              "totalChapter": {
+                "type": "integer"
+              },
+              "avgPointType2":{
+                "type": "object",
+                "properties":{
+                    "$numberDecimal":{
+                      "type":"string"
+                    }
+                }
+              },
+              "voteCountType2": {
+                "type": "integer"
+              },
+              "view": {
+                "type": "integer"
+              },
+              "novel_genres": {
+                "type": "array",
+                "items":{
+                    "type":"string"
+                }
+              },
+              "novel_author": {
+                "type": "string"
+              },
+              "novel_source": {
+                "type": "string"
+              },
+              "novel_other_name": {
+                "type": "string"
+              },
+              "novel_status": {
+                "type": "integer"
+              },
+              "novel_desc": {
+                "type": "string"
+              },
+              "novel_name": {
+                "type": "string"
+              },
+              "crawler_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "novel_id": {
+                "type": "string"
+              },
+              "created_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "__v": {
+                "type": "integer"
+              },
+              "firstChapter": {
+                "type": "object",
+                "properties":{
+                  "chapter_id":{
+                    "type":"string"
+                  },
+                  "chapter_name":{
+                    "type":"string"
+                  }
+              }
+              },
+              "recentChapter": {
+                "type": "object",
+                "properties":{
+                  "chapter_id":{
+                    "type":"string"
+                  },
+                  "chapter_name":{
+                    "type":"string"
+                  }
+              }
+            },
+              "viewToDay": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    },
+    "GetNovelsByGenreResponce": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "array",
+          "items":{
+            "type": "object",
+            "properties":{
+              "_id": {
+                "type": "string"
+              },
+              "view": {
+                "type": "integer"
+              },
+              "novel_genres": {
+                "type": "array",
+                "items":{
+                    "type":"string"
+                }
+              },
+              "novel_name": {
+                "type": "string"
+              },
+              "novel_author": {
+                "type": "string"
+              },
+              "novel_other_name": {
+                "type": "string"
+              },
+              "novel_status": {
+                "type": "integer"
+              },
+              "novel_desc": {
+                "type": "string"
+              },
+              "crawler_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "novel_id": {
+                "type": "string"
+              },
+              "created_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "__v": {
+                "type": "integer"
+              },
+              "recentChapter": {
+                "type": "object",
+                "properties":{
+                  "chapter_id":{
+                    "type":"string"
+                  },
+                  "chapter_name":{
+                    "type":"string"
+                  }
+              }
+            },
+            "firstChapter": {
+              "type": "object",
+              "properties":{
+                "chapter_id":{
+                  "type":"string"
+                },
+                "chapter_name":{
+                  "type":"string"
+                }
+            }
+            },
+            "hot": {
+              "type": "boolean"
+            },
+              "new": {
+                "type": "boolean"
+              },
+              "totalChapter": {
+                "type": "integer"
+              },
+              "voteCountType2": {
+                "type": "integer"
+              },
+              "avgPointType2":{
+                "type": "object",
+                "properties":{
+                    "$numberDecimal":{
+                      "type":"string"
+                    }
+                }
+              },
+              "novel_source": {
+                "type": "string"
+              },
+              "viewToDay": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    },
+    "GetListChapterReponce":{
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "array",
+          "items":{
+            "type": "object",
+            "properties":{
+              "_id": {
+                "type": "string"
+              },
+              "chapter_name": {
+                "type": "string"
+              },
+              "chapter_id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "NovelInfoResponce":{
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "array",
+          "items":{
+            "type": "object",
+            "properties":{
+              "_id": {
+                "type": "string"
+              },
+              "hot": {
+                "type": "boolean"
+              },
+              "new": {
+                "type": "boolean"
+              },
+              "totalChapter": {
+                "type": "integer"
+              },
+              "avgPointType2":{
+                "type": "object",
+                "properties":{
+                    "$numberDecimal":{
+                      "type":"string"
+                    }
+                }
+              },
+              "voteCountType2": {
+                "type": "integer"
+              },
+              "view": {
+                "type": "integer"
+              },
+              "novel_genres": {
+                "type": "array",
+                "items":{
+                  "type": "string"
+                }
+              },
+              "novel_author": {
+                "type": "string"
+              },
+              "novel_source": {
+                "type": "string"
+              },
+              "novel_other_name": {
+                "type": "string"
+              },
+              "novel_status": {
+                "type": "integer"
+              },
+              "novel_desc": {
+                "type": "string"
+              },
+              "novel_name": {
+                "type": "string"
+              },
+              "crawler_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "novel_id": {
+                "type": "string"
+              },
+              "created_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "__v": {
+                "type": "integer"
+              },
+              "firstChapter": {
+                "type": "object",
+                "properties":{
+                  "chapter_id":{
+                    "type":"string"
+                  },
+                  "chapter_name":{
+                    "type":"string"
+                  }
+              }
+              },
+              "recentChapter": {
+                "type": "object",
+                "properties":{
+                  "chapter_id":{
+                    "type":"string"
+                  },
+                  "chapter_name":{
+                    "type":"string"
+                  }
+              }
+            },
+            "viewToDay": {
+                "type": "integer"
+            },
+            "same_author":{
+               "type":"array",
+               "items":{
+                "type": "object",
+                "properties":{
+                  "_id":{
+                    "type":"string"
+                  },
+                  "totalChapter":{
+                    "type":"integer"
+                  },
+                  "novel_status":{
+                    "type":"integer"
+                  },
+                  "novel_name":{
+                    "type":"string"
+                  },
+                  "novel_id":{
+                    "type":"string"
+                  }
+                }
+              }
+            }
+            }
+          }
+        }
+      }
+    },
+    "GetChapterDetailResponce": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "object",
+          "properties":{
+            "chapterInfo": {
+              "type": "object",
+              "properties":{
+                "_id":{
+                  "type": "string"
+                },
+                "chapter_name":{
+                  "type": "string"
+                },
+                "chapter_content":{
+                  "type": "string"
+                },
+                "chapter_id":{
+                  "type": "string"
+                },
+                "crawler_date":{
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "novel":{
+                  "type": "object",
+                  "properties":{
+                    "novel_id":{
+                      "type": "string"
+                    },
+                    "novel_name":{
+                      "type": "string"
+                    }
+                  }
+                },
+                "created_date":{
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "__v":{
+                  "type": "integer"
+                }
+
+              }
+            },
+            "prevChapter":{
+                "type":"object",
+                "properties":{
+                  "_id":{
+                    "type": "string"
+                  },
+                  "chapter_name":{
+                    "type": "string"
+                  },
+                  "chapter_id":{
+                    "type": "string"
+                  },
+                  "novel":{
+                    "type": "object",
+                    "properties":{
+                      "novel_id":{
+                        "type": "string"
+                      },
+                      "novel_name":{
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+            },
+            "nextChapter":{
+              "type":"object",
+              "properties":{
+                "_id":{
+                  "type": "string"
+                },
+                "chapter_name":{
+                  "type": "string"
+                },
+                "chapter_id":{
+                  "type": "string"
+                },
+                "novel":{
+                  "type": "object",
+                  "properties":{
+                    "novel_id":{
+                      "type": "string"
+                    },
+                    "novel_name":{
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "SearchNovelResponce": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "results": {
+          "type": "array",
+          "items":{
+            "type": "object",
+            "properties":{
+              "_id": {
+                "type": "string"
+              },
+              "novel_name": {
+                "type": "string"
+              },
+              "novel_id": {
+                "type": "string"
+              }
+              }
+            }
+            },
+            "keyword":{
+              "type": "string"
+            }
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
