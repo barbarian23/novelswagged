@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "API cho novel",
+    "description": "chrome.exe --user-data-dir=\"C://Chrome dev session\" --disable-web-security",
     "version": "1.0.0",
     "title": "Swagger Novel"
   },
@@ -39,7 +39,7 @@
               "NEW",
               "HOT",
               "COMPLETED",
-              "HOT",
+              "POPULAR",
               "LATEST_RELEASE"
             ],
             "default": "NEW"
@@ -68,7 +68,7 @@
         ],
         "parameters": [
           {
-            "name": "tags",
+            "name": "novelId",
             "in": "path",
             "description": "Truyền vào path id của truyện (id dạng string)",
             "required": true,
